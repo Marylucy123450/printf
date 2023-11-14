@@ -1,22 +1,15 @@
 #include "main.h"
 
 /**
- *_printf - A personalized version of printf for printing formatted output.
- *@format: The string with format instructions.
- *@...: Additional arguments for formatting and printing.
+ * print_char - Prints a character to standard output.
+ * @args: The va_list containing the character to be printed.
  *
- * Return: Count of printed characters (excluding null byte)
+ * Return: The number of characters printed (always 1).
  */
-int _printf(const char *format, ...)
+int print_char(va_list args)
 {
-	va_list args;
-	int count = 0;
+	char c = va_arg(args, int);
 
-	va_start(args, format);
-	count = parse_format(format, args);
-	va_end(args);
-
-	return (count);
+	write(1, &c, 1);
+	return (1);
 }
-
-
