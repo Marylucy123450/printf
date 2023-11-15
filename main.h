@@ -18,10 +18,14 @@
 
 typedef struct format
 {
-	char *id;
+	const char *id;
 	int (*f)();
 } convert_match;
 
+
+int printf_srev(va_list args);
+int _strlen(char *s);
+int _strlenc(const char *s);
 int printf_37(void);
 int _putchar(char c);
 int _strlen(char *s);
@@ -29,6 +33,7 @@ int _printf(const char *format, ...);
 int print_char(va_list args);
 int print_string(va_list args);
 int print_int(va_list args);
+int printf_dec(va_list args);
 int parse_format(const char *format, va_list args);
 
 #endif /* MAIN_H */
