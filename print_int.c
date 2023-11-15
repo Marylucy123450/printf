@@ -1,90 +1,43 @@
 #include "main.h"
-/**
- * printf_int - prints integer to the output screen
- * @args: arguments to be  printed
- * Return: number of characters printed
- */
-int printf_int(va_list args)
-{
-	int n = va_arg(args, int);
-	int num, last = n % 10, digit, exp = 1;
-	int  i = 1;
-
-	n = n / 10;
-	num = n;
-
-	if (last < 0)
-	{
-		_putchar('-');
-		num = -num;
-		n = -n;
-		last = -last;
-		i++;
-	}
-	if (num > 0)
-	{
-		while (num / 10 != 0)
-		{
-			exp = exp * 10;
-			num = num / 10;
-		}
-		num = n;
-		while (exp > 0)
-		{
-			digit = num / exp;
-			_putchar(digit + '0');
-			num = num - (digit * exp);
-			exp = exp / 10;
-			i++;
-		}
-	}
-	_putchar(last + '0');
-
-	return (i);
-}
 
 /**
- * printf_dec - function to print decimal input
- * @args: arguments to be  printed
- * Return: number of characters printed
+ * print_int - Prints an integer to standard output.
+ * @args: The va_list containing the integer to be printed.
+ *
+ * Return: The number of characters printed.
  */
-
-int printf_dec(va_list args)
+int print_int(va_list args)
 {
-	int n = va_arg(args, int);
-	int num, last = n % 10, digit;
-	int  i = 1;
-	int exp = 1;
+	int num = va_arg(args, int);
+	int num_copy = num;
+	int digit_count = (num == 0) ? 1 : 0;
+	int count;
+	int i;
 
-	n = n / 10;
-	num = n;
+	char digits[10];
 
-	if (last < 0)
+	if (num < 0)
 	{
-		_putchar('-');
+		write(1, "-", 1);
 		num = -num;
-		n = -n;
-		last = -last;
-		i++;
 	}
-	if (num > 0)
-	{
-		while (num / 10 != 0)
-		{
-			exp = exp * 10;
-			num = num / 10;
-		}
-		num = n;
-		while (exp > 0)
-		{
-			digit = num / exp;
-			_putchar(digit + '0');
-			num = num - (digit * exp);
-			exp = exp / 10;
-			i++;
-		}
-	}
-	_putchar(last + '0');
 
-	return (i);
+	while (num_copy != 0)
+	{
+		num_copy /= 10;
+		digit_count++;
+	}
+
+	count = digit_count;
+
+	for (i = digit_count - 1; i >= 0; i--)
+	{
+		int digit = num % 10;
+
+		digits[i] = digit + '0';
+		num /= 10;
+	}
+
+	write(1, digits, digit_count);
+	return (count);
 }
